@@ -17,7 +17,7 @@ public class ListenThread implements Runnable {
             while(true){
                 System.out.println("Waiting for Connection");
                 Socket accSock = servSock.accept();
-                System.out.println("Waiting for Connection");
+                System.out.println("Accepted");
                 ReceivedMessagePacketThread tMsg = new ReceivedMessagePacketThread(accSock);
             }
         }

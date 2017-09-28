@@ -8,7 +8,8 @@ public abstract class Message implements Serializable {
     private boolean fDT=false;
     private final long serialVersionUID=1L;
 
-    abstract Object getMessage();
+    abstract Object getMessageData();
+    abstract Message performAction();
 
     public boolean isfIP() {
         return fIP;

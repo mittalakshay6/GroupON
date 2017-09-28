@@ -5,11 +5,11 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-public class ReceivedMessagePacketThread implements Runnable, MessageThread {
+public class AcceptedSocketThread implements Runnable, MessageThread {
     private Socket socket;
-    ReceivedMessagePacketThread(Socket socket){
+    AcceptedSocketThread(Socket socket){
         this.socket=socket;
-        Thread t = new Thread(this, "com.ReceivedMessagePacketThread");
+        Thread t = new Thread(this, "com.AcceptedSocketThread");
         t.start();
     }
     public void run(){

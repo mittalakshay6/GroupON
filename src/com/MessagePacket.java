@@ -32,8 +32,4 @@ public class MessagePacket extends Message {
     public Message getMessage() {
         return message;
     }
-
-    public void setMessage(Message message) {
-        this.message = message;
-    }
 }

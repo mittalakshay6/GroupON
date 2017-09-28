@@ -1,11 +1,13 @@
 package com;
 
+import com.Server.Server;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ListenThread implements Runnable {
-    Thread t;
+    private Thread t;
     public ListenThread(){
         t=new Thread(this, "com.ListenThread");
         System.out.println("New listen thread spawned "+ t);
@@ -18,7 +20,8 @@ public class ListenThread implements Runnable {
                 System.out.println("Waiting for Connection");
                 Socket accSock = servSock.accept();
                 System.out.println("Accepted");
-                ReceivedMessagePacketThread tMsg = new ReceivedMessagePacketThread(accSock);
+                Server.ipLookupTable.put(Server.getNextID(), accSock.getInetAddress());
+                AcceptedSocketThread tMsg = new AcceptedSocketThread(accSock);
             }
         }
         catch (IOException e){

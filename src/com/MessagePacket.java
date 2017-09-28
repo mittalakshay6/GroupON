@@ -1,35 +1,37 @@
 package com;
 
-import java.net.InetAddress;
-
 public class MessagePacket extends Message {
-    InetAddress to;
-    InetAddress from;
-    Message message;
-    MessagePacket(InetAddress to, InetAddress from, Message msg){
+    private int to;
+    private int from;
+    private Message message;
+    MessagePacket(int to, int from, Message msg){
         this.to=to;
         this.from=from;
         this.message=msg;
     }
 
-    public InetAddress getTo() {
+    public int getTo() {
         return to;
     }
 
-    public void setTo(InetAddress to) {
+    public void setTo(int to) {
         this.to = to;
     }
 
-    public InetAddress getFrom() {
+    public int getFrom() {
         return from;
     }
 
-    public void setFrom(InetAddress from) {
+    public void setFrom(int from) {
         this.from = from;
     }
 
-    @Override
     public Message getMessage() {
         return message;
+    }
+
+    @Override
+    Message performAction() {
+        return message.performAction();
     }
 }

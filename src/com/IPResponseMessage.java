@@ -3,13 +3,13 @@ package com;
 import java.net.InetAddress;
 
 public class IPResponseMessage extends ResponseMessage{
-    InetAddress responseMessage;
+    InetAddress inetAddress;
     IPResponseMessage(InetAddress responseMessage){
-        this.responseMessage=responseMessage;
+        this.inetAddress =responseMessage;
     }
 
     @Override
-    public InetAddress getResponseMessage() {
-        return responseMessage;
+    public IPResponseMessage getResponseMessage() {
+        return this;
     }
 }

@@ -24,8 +24,10 @@ public class AcceptedSocketThread implements Runnable, MessageThread {
             InputStream inputStream = socket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             try {
+                objectInputStream.defaultReadObject();
                 MessagePacket messagePacket = (MessagePacket) objectInputStream.readObject();
                 ReceivedMessagePacketProcessor receivedMessagePacketProcessor = new ReceivedMessagePacketProcessor(messagePacket);
+                receivedMessagePacketProcessor.processMessage();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -46,5 +48,12 @@ public class AcceptedSocketThread implements Runnable, MessageThread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public InetAddress getSocketInetAddress(){
+        return socket.getInetAddress();
+    }
+
+    public int getClientListenPort() {
+        return clientListenPort;
     }
 }

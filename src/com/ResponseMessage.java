@@ -7,4 +7,12 @@ public abstract class ResponseMessage extends Message {
         return fRes;
     }
 
+    @Override
+    Message performAction() {
+        return getResponseMessage();
+    }
+
+    public ResponseMessage getResponseMessage(){
+        return this;
+    }
 }

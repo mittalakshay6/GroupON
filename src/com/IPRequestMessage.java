@@ -1,22 +1,22 @@
 package com;
 
+import com.Server.Server;
+
 public class IPRequestMessage extends Message {
-    private String msg;
     private int requestID;
     IPRequestMessage(String msg, int requestID){
-        this.msg=msg;
         this.requestID=requestID;
         this.setfReq();
-    }
-    String getMessage(){
-        return msg;
+        this.setfIP();
     }
 
-    public int getRequestID() {
-        return requestID;
+    @Override
+    Message performAction() {
+        return this.createResponseMessage();
     }
-
-    public void setRequestID(int requestID) {
-        this.requestID = requestID;
+    IPResponseMessage createResponseMessage(){
+        AcceptedSocketThread acceptedSocketThread = Server.getAcceptedSocketThreadFromID(requestID);
+        IPResponseMessage ipResponseMessage = new IPResponseMessage(acceptedSocketThread.getSocketInetAddress());
+        return ipResponseMessage;
     }
 }

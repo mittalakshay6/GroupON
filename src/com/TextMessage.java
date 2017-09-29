@@ -1,23 +1,14 @@
 package com;
 
-public class TextMessage implements Message {
+public class TextMessage extends Message {
     String msg;
-    boolean fIP=false;
-    boolean fDT=true;
     TextMessage(String msg){
         this.msg=msg;
+        this.setfDT();
     }
 
     @Override
     public String getMessage() {
         return msg;
-    }
-
-    public boolean isfIP() {
-        return fIP;
-    }
-
-    public boolean isfDT() {
-        return fDT;
     }
 }

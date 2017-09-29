@@ -5,4 +5,5 @@ public class ReceivedMessagePacketProcessor {
     ReceivedMessagePacketProcessor(MessagePacket messagePacket){
         this.messagePacket=messagePacket;
     }
+
 }

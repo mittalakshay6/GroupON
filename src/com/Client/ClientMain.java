@@ -9,7 +9,7 @@ public class ClientMain {
         Socket socket = new Socket(InetAddress.getLoopbackAddress(), 1111);
         Thread t=Thread.currentThread();
         try {
-            t.sleep(20000);
+            t.sleep(40000);
         }
         catch (Exception e){
 

@@ -14,6 +14,7 @@ public class ReceivedMessagePacketThread implements Runnable, MessageThread {
     }
     public void run(){
         try {
+            System.out.println("msgThread");
             InputStream inputStream = socket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             try {

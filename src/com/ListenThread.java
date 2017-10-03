@@ -7,9 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ListenThread implements Runnable {
-    private Thread t;
     public ListenThread(){
-        t=new Thread(this, "com.ListenThread");
+        Thread t = new Thread(this, "com.ListenThread");
         System.out.println("New listen thread spawned "+ t);
         t.start();
     }
@@ -26,7 +25,7 @@ public class ListenThread implements Runnable {
             }
         }
         catch (IOException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
     static void registerAcceptedSocketThread(AcceptedSocketThread acceptedSocketThread){

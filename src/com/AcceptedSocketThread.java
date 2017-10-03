@@ -33,7 +33,7 @@ public class AcceptedSocketThread implements Runnable, MessageThread {
             }
         }
         catch (IOException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
     public void start(){

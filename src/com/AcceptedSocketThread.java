@@ -65,6 +65,11 @@ public class AcceptedSocketThread {
         Identity id = getClientID();
         Server.registerAcceptedSocketThread(id, this);
     }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
     public void runProcessorOnce(){
         receivedMessagePacketProcessor.processMessage();
     }

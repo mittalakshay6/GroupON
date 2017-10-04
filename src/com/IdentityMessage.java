@@ -1,7 +1,5 @@
 package com;
 
-import com.Server.Server;
-
 public class IdentityMessage implements Message{
     Identity id;
     IdentityMessage(Identity id){
@@ -14,7 +12,6 @@ public class IdentityMessage implements Message{
 
     @Override
     public Message performAction() {
-         Server.registerAcceptedSocketThread(id);
-         return this;
+        return this;
     }
 }

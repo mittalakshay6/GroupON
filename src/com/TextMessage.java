@@ -5,7 +5,6 @@ public class TextMessage implements Message {
     TextMessage(String msg){
         this.msg=msg;
     }
-
     @Override
     public Message performAction() {
         System.out.println(msg);

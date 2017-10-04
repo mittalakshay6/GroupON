@@ -1,5 +1,7 @@
 package com;
 
+import com.Server.Server;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -7,13 +9,15 @@ import java.util.Vector;
 
 public class AcceptedSocketThread {
     private Socket socket;
-    private Identity clientID;
+    private Identity clientID=null;
     private final int clientListenPort = 1234;
     private ReceivedMessagePacketProcessor receivedMessagePacketProcessor;
     AcceptedSocketThread(Socket socket){
         this.socket=socket;
     }
     public Identity getClientID() {
+        if(clientID==null)
+            return retrieveIDfromClient();
         return clientID;
     }
     public Identity retrieveIDfromClient(){
@@ -65,6 +69,10 @@ public class AcceptedSocketThread {
         while(true){
             ReceiveMessagePacket();
         }
+    }
+    public void registerThread(){
+        Identity id = getClientID();
+        Server.registerAcceptedSocketThread(id, this);
     }
     public void runProcessorOnce(){
         receivedMessagePacketProcessor.processMessage();

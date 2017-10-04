@@ -8,7 +8,7 @@ public class ReceivedMessagePacketProcessor {
         messagePackets.addElement(messagePacket);
     }
     void processMessage(){
-        Message message = messagePackets.firstElement().performAction();
+        messagePackets.firstElement().performAction();
         messagePackets.remove(0);
     }
     boolean isUnprocessedMessages(){

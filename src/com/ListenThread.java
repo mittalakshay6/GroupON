@@ -6,13 +6,13 @@ import java.net.Socket;
 import java.util.Vector;
 
 public class ListenThread {
-    private Vector<AcceptedSocketThread> acceptedSocketThreadVector;
+    private Vector<AcceptedSocketThread> unregisteredAcceptedSocketThreadVector;
     public void acceptConnection(){
         try (ServerSocket servSock = new ServerSocket(1111)) {
             while(true){
                 Socket accSock = servSock.accept();
                 AcceptedSocketThread acceptedSocketThread = new AcceptedSocketThread(accSock);
-                acceptedSocketThreadVector.addElement(acceptedSocketThread);
+                unregisteredAcceptedSocketThreadVector.addElement(acceptedSocketThread);
             }
         }
         catch (IOException e){
@@ -20,12 +20,15 @@ public class ListenThread {
         }
     }
     boolean isUnregisteredAcceptedSocket(){
-        return !acceptedSocketThreadVector.isEmpty();
+        return !unregisteredAcceptedSocketThreadVector.isEmpty();
     }
-    public Vector<AcceptedSocketThread> getAcceptedSocketThreadVector() {
-        return acceptedSocketThreadVector;
+    public Vector<AcceptedSocketThread> getAllUnregisteredAcceptedSocketThreads() {
+        return unregisteredAcceptedSocketThreadVector;
     }
     public void removeAcceptedSocket(AcceptedSocketThread e){
-        acceptedSocketThreadVector.remove(e);
+        unregisteredAcceptedSocketThreadVector.remove(e);
+    }
+    public AcceptedSocketThread getUnregisteredAcceptedSocketThread(){
+        return unregisteredAcceptedSocketThreadVector.firstElement();
     }
 }

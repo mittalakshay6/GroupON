@@ -15,27 +15,21 @@ public class MessagePacket {
         this.from=from;
         this.message=msg;
     }
-
     public Identity getTo() {
         return to;
     }
-
     public void setTo(Identity to) {
         this.to = to;
     }
-
     public Identity getFrom() {
         return from;
     }
-
     public void setFrom(Identity from) {
         this.from = from;
     }
-
     public Message getMessage() {
         return message;
     }
-
     public Message performAction(){
         if(isForwardingRequired()){
             return performActionAndForward();
@@ -51,19 +45,15 @@ public class MessagePacket {
         messagePacket.sendMessagePacket();
         return message;
     }
-
     public Message performActionNoForward() {
         return message.performAction();
     }
-
     public boolean isForwardingRequired() {
         return forwardingRequired;
     }
-
     public void setForwardingRequired() {
         forwardingRequired=true;
     }
-
     public void unsetForwardingRequired() {
         forwardingRequired=false;
     }

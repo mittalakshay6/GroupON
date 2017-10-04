@@ -18,10 +18,8 @@ public class Upload implements Runnable {
             socket = new Socket(InetAddress.getByName(hostName),port);
             fileContainer=new FileInputStream(filepath);
             fileSender= socket.getOutputStream();
-
         }
         catch(Exception e){
-
         }
     }
     @Override
@@ -39,7 +37,6 @@ public class Upload implements Runnable {
             socket.close();
         }
         catch(Exception e){
-
         }
     }
 }

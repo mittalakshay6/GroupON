@@ -1,6 +1,6 @@
 package com;
 
-public class MessagePacket extends Message {
+public class MessagePacket implements Message {
     private int to;
     private int from;
     private Message message;
@@ -31,7 +31,7 @@ public class MessagePacket extends Message {
     }
 
     @Override
-    Message performAction() {
+    public Message performAction() {
         return message.performAction();
     }
 }

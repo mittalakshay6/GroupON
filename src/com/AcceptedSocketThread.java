@@ -3,57 +3,73 @@ package com;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Vector;
 
-public class AcceptedSocketThread implements Runnable, MessageThread {
+public class AcceptedSocketThread {
     private Socket socket;
-    private Integer clientID;
+    private Identity clientID;
     private final int clientListenPort = 1234;
-    private Thread t;
-    AcceptedSocketThread(Socket socket, Integer clientID){
+    private ReceivedMessagePacketProcessor receivedMessagePacketProcessor;
+    AcceptedSocketThread(Socket socket){
         this.socket=socket;
-        this.clientID=clientID;
-        t = new Thread(this, "com.AcceptedSocketThread");
     }
-    public int getClientID() {
+    public Identity getClientID() {
         return clientID;
     }
-    public void run(){
+    public Identity retrieveIDfromClient(){
+        InputStream inputStream = null;
         try {
-            System.out.println("msgThread");
-            this.notifyIDtoClient();
-            InputStream inputStream = socket.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            try {
-                objectInputStream.defaultReadObject();
-                MessagePacket messagePacket = (MessagePacket) objectInputStream.readObject();
-                ReceivedMessagePacketProcessor receivedMessagePacketProcessor = new ReceivedMessagePacketProcessor(messagePacket);
-                receivedMessagePacketProcessor.processMessage();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-    public void start(){
-        t.start();
-    }
-    public void notifyIDtoClient(){
-        InetAddress inetAddress = socket.getInetAddress();
-        try(Socket socket = new Socket(inetAddress, clientListenPort)){
-            OutputStream outputStream = socket.getOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-            dataOutputStream.writeInt(clientID);
+            inputStream = socket.getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        ObjectInputStream objectInputStream = null;
+        try {
+            objectInputStream = new ObjectInputStream(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            objectInputStream.defaultReadObject();
+            MessagePacket messagePacket = (MessagePacket) objectInputStream.readObject();
+            IdentityMessage identityMessage =(IdentityMessage) messagePacket.getMessage();
+            clientID=identityMessage.getId();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            return clientID;
         }
     }
     public InetAddress getSocketInetAddress(){
         return socket.getInetAddress();
     }
-
     public int getClientListenPort() {
         return clientListenPort;
+    }
+    public void ReceiveMessagePacket(){
+        receivedMessagePacketProcessor = new ReceivedMessagePacketProcessor();
+        try{
+            InputStream inputStream = socket.getInputStream();
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            objectInputStream.defaultReadObject();
+            MessagePacket messagePacket = (MessagePacket) objectInputStream.readObject();
+            receivedMessagePacketProcessor.addMessagePacket(messagePacket);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void startReceivingMessagePackets(){
+        while(true){
+            ReceiveMessagePacket();
+        }
+    }
+    public void runProcessorOnce(){
+        receivedMessagePacketProcessor.processMessage();
+    }
+    public void runProcessorForAll(){
+        receivedMessagePacketProcessor.processAll();
     }
 }

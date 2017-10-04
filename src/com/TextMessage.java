@@ -1,14 +1,14 @@
 package com;
 
-public class TextMessage extends Message {
+public class TextMessage implements Message {
     String msg;
     TextMessage(String msg){
         this.msg=msg;
-        this.setfDT();
     }
 
     @Override
-    public String getMessage() {
-        return msg;
+    public Message performAction() {
+        System.out.println(msg);
+        return this;
     }
 }

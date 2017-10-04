@@ -21,23 +21,14 @@ public class AcceptedSocketThread {
         return clientID;
     }
     public Identity retrieveIDfromClient(){
-        InputStream inputStream = null;
         try {
+            InputStream inputStream = null;
             inputStream = socket.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ObjectInputStream objectInputStream = null;
-        try {
+            ObjectInputStream objectInputStream = null;
             objectInputStream = new ObjectInputStream(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            objectInputStream.defaultReadObject();
             MessagePacket messagePacket = (MessagePacket) objectInputStream.readObject();
-            IdentityMessage identityMessage =(IdentityMessage) messagePacket.getMessage();
-            clientID=identityMessage.getId();
+            IdentityMessage identityMessage = (IdentityMessage) messagePacket.getMessage();
+            clientID = identityMessage.getId();
         }
         catch (Exception e){
             e.printStackTrace();

@@ -7,6 +7,7 @@ import java.io.OutputStream;
 
 public class MessagePacket {
     private boolean forwardingRequired;
+    private boolean isNotification;
     private Identity to;
     private Identity from;
     private Message message;
@@ -67,5 +68,17 @@ public class MessagePacket {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void setForwardingRequired(boolean forwardingRequired) {
+        this.forwardingRequired = forwardingRequired;
+    }
+
+    public boolean isNotification() {
+        return isNotification;
+    }
+
+    public void setNotification(boolean notification) {
+        isNotification = notification;
     }
 }

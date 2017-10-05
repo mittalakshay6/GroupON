@@ -1,14 +1,11 @@
 package com;
 
+import java.net.InetAddress;
+
 public class ImageNotificationMessage implements Message {
-    String name;
     int fileSize;
-    public ImageNotificationMessage(String name, int fileSize) {
-        this.name = name;
+    public ImageNotificationMessage(int fileSize) {
         this.fileSize = fileSize;
-    }
-    public String getName() {
-        return name;
     }
     public int getFileSize() {
         return fileSize;

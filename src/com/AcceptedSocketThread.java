@@ -47,7 +47,6 @@ public class AcceptedSocketThread {
         try{
             InputStream inputStream = socket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            objectInputStream.defaultReadObject();
             MessagePacket messagePacket = (MessagePacket) objectInputStream.readObject();
             receivedMessagePacketProcessor.addMessagePacket(messagePacket);
         }

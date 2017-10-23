@@ -1,18 +1,16 @@
 package com.Client;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class ClientMain {
-    public static void main(String[] args) throws IOException {
-        Socket socket = new Socket(InetAddress.getLoopbackAddress(), 1111);
-        Thread t=Thread.currentThread();
-        try {
-            t.sleep(40000);
-        }
-        catch (Exception e){
+public class ClientMain extends Application {
 
-        }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+
     }
 }
